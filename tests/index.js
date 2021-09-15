@@ -1,16 +1,16 @@
 var fs = require('fs');
 var exec = require('child_process').exec;
 
-var tests = fs.readdirSync(__dirname).filter(function(file) {
+var tests = fs.readdirSync(__dirname).filter(file => {
 	return !fs.statSync(__dirname+'/'+file).isDirectory();
-}).filter(function(file) {
+}).filter(file => {
 	return file !== 'index.js';
 });
 
 var cnt = 0;
 var all = tests.length;
 
-var loop = function() {
+var loop = () => {
 	var next = tests.shift();
 
 	if (!next) {
@@ -18,7 +18,7 @@ var loop = function() {
 		return;
 	}
 
-	exec('node '+__dirname+'/'+next, function(err) {
+	exec('node '+__dirname+'/'+next, err =>
 		cnt++;
 
 		if (err) {
